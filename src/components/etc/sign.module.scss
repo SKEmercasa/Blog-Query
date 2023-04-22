@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .forForm {
+    width: 400px;
+    height: auto;
+    margin-top: 50px;
+    padding: 32px;
+    display: block;
+    background-color: #ffffff;
+    h2 {
+      text-align: center;
+    }
+  }
+}
+.other {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+    color: #8C8C8C;
+    a {
+        color: #1890FF;
+    }
+}

@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    background-color: #e5e5e5;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .pagination {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+}
