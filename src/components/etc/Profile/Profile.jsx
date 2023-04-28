@@ -12,7 +12,6 @@ const Profile = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       Cookies.set('Token', data.user.token, { sameSite: 'strict' });
       navigate('/', { state: { data } });
     }

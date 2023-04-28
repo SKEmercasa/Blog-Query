@@ -5,10 +5,11 @@ import Cookies from 'js-cookie';
 
 import style from './user.module.scss';
 
-const User = ({ data, off }) => {
+const User = ({ data, offData, offAuth }) => {
   const logOut = () => {
     Cookies.remove('Token', { sameSite: 'strict' });
-    off(null);
+    offData(null);
+    offAuth(false);
   };
   return (
     <div className={style.user}>

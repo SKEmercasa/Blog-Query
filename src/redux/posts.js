@@ -6,10 +6,26 @@ export const postsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api/' }),
   endpoints: (build) => ({
     getPosts: build.query({
-      query: (page) => `articles?limit=5&offset=${(page - 1) * 5}`,
+      query: (page) => ({
+        url: `articles?limit=5&offset=${(page - 1) * 5}`,
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+      }),
+      providesTags: ['post'],
     }),
     getPost: build.query({
-      query: (slug) => `articles/${slug}`,
+      query: (slug) => ({
+        url: `articles/${slug}`,
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+      }),
+      providesTags: ['tag'],
     }),
     addUser: build.mutation({
       query: (body) => ({
@@ -52,6 +68,63 @@ export const postsApi = createApi({
         body,
       }),
     }),
+    addPost: build.mutation({
+      query: (body) => ({
+        url: 'articles',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+        body,
+      }),
+      invalidatesTags: ['post'],
+    }),
+    updatePost: build.mutation({
+      query: ({ body, slug }) => ({
+        url: `articles/${slug}`,
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+        body: body,
+      }),
+      invalidatesTags: ['post'],
+    }),
+    deletePost: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}`,
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+      }),
+      invalidatesTags: ['post'],
+    }),
+    favoritePost: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+      }),
+      invalidatesTags: ['tag', 'post'],
+    }),
+    unfavoritePost: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${Cookies.get('Token')}`,
+        },
+      }),
+      invalidatesTags: ['tag', 'post'],
+    }),
   }),
 });
 
@@ -62,4 +135,9 @@ export const {
   useCheckAuthQuery,
   useLoginUserMutation,
   useUpdateUserMutation,
+  useAddPostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+  useFavoritePostMutation,
+  useUnfavoritePostMutation,
 } = postsApi;

@@ -1,42 +1,35 @@
 import { HeartFilled, HeartTwoTone } from '@ant-design/icons';
 import { Space } from 'antd';
-import { useEffect, useState } from 'react';
 
-const Like = ({ favCount }) => {
-  const [like, setLike] = useState(null);
-  let [count, setCount] = useState(favCount);
-  const [view, setView] = useState(false);
-  const [auth, setAuth] = useState(null);
+import { useFavoritePostMutation, useUnfavoritePostMutation } from '../../../../redux/posts';
 
-  const onLike = () => {
-    setLike(!like);
-    setView(true);
-  };
+const Like = ({ favCount, verify, slug, like }) => {
+  function pushLike() {
+    isLikes(slug);
+  }
+  function pushUnlike() {
+    isUnlikes(slug);
+  }
 
-  useEffect(() => {
-    view && setCount(like ? count + 1 : count - 1);
-  }, [like]);
-
-  useEffect(() => {
-    setAuth(false);
-  }, []);
+  const [isLikes] = useFavoritePostMutation();
+  const [isUnlikes] = useUnfavoritePostMutation();
 
   return (
     <div>
-      {!auth ? (
+      {!verify ? (
         <Space>
           <HeartFilled style={{ color: 'grey' }} />
         </Space>
       ) : (
         <Space>
           {like ? (
-            <HeartFilled onClick={onLike} style={{ color: 'hotpink' }} />
+            <HeartFilled style={{ color: 'hotpink' }} onClick={pushUnlike} />
           ) : (
-            <HeartTwoTone twoToneColor="hotpink" onClick={onLike} />
+            <HeartTwoTone twoToneColor="hotpink" onClick={pushLike} />
           )}
         </Space>
       )}
-      <span>{count}</span>
+      <span>{favCount}</span>
     </div>
   );
 };

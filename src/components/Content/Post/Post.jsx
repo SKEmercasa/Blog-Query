@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
 
 import Like from './Like/Like';
 import TagLink from './TagLink/TagLink';
@@ -8,12 +8,16 @@ import style from './post.module.scss';
 import Ava from './Ava/Ava';
 import Edit from './Edit/Edit';
 
-const Post = ({ item }) => {
-  const [auth, setAuth] = useState(false);
-
+const Post = ({ item, verify, auth }) => {
+  const [author, setAuthor] = useState(null);
   useEffect(() => {
-    setAuth(auth);
-  }, []);
+    if (item?.author?.username === auth?.user?.username) {
+      setAuthor(verify);
+    }
+    if (verify == false) {
+      setAuthor(verify);
+    }
+  }, [auth]);
 
   function textShot(el = '', limit) {
     let overText = `${el.slice(0, el.indexOf(' ', limit))}`;
@@ -27,7 +31,7 @@ const Post = ({ item }) => {
           <Link to={`/articles/${item.slug && item.slug}`} className={style.title}>
             {textShot(item.title, 30)}
           </Link>
-          <Like favCount={item.favoritesCount} />
+          <Like favCount={item.favoritesCount} verify={verify} like={item.favorited} slug={item.slug} />
         </header>
         <TagLink tags={item.tagList} deg={textShot} />
         <section>
@@ -44,7 +48,7 @@ const Post = ({ item }) => {
             <Ava img={item.author.image} />
           </div>
         </main>
-        {auth && <Edit />}
+        {author === true && <Edit slug={item.slug} />}
       </div>
     </div>
   );

@@ -1,15 +1,17 @@
 import { Button, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-const View = ({ addPost }) => {
+const View = ({ item, update, slug }) => {
   const onFinish = (values) => {
-    addPost({
-      article: {
-        title: values.title,
-        description: values.description,
-        body: values.text,
-        tagList: values.list,
+    update({
+      body: {
+        article: {
+          title: values.title,
+          description: values.description,
+          body: values.text,
+        },
       },
+      slug,
     });
   };
   const onFinishFailed = (errorInfo) => {
@@ -30,6 +32,7 @@ const View = ({ addPost }) => {
         <Form.Item
           name="title"
           label="Title"
+          initialValue={item.article.title}
           rules={[
             {
               required: true,
@@ -42,6 +45,7 @@ const View = ({ addPost }) => {
         <Form.Item
           name="description"
           label="Short description"
+          initialValue={item.article.description}
           rules={[
             {
               required: true,
@@ -54,6 +58,7 @@ const View = ({ addPost }) => {
         <Form.Item
           name="text"
           label="Text"
+          initialValue={item.article.body}
           rules={[
             {
               required: true,
@@ -63,7 +68,7 @@ const View = ({ addPost }) => {
         >
           <TextArea rows={4} placeholder="Text" />
         </Form.Item>
-        <Form.List name="list">
+        <Form.List name="list" initialValue={item.article.tagList}>
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
@@ -81,7 +86,7 @@ const View = ({ addPost }) => {
                       }}
                     />
                   </Form.Item>
-                  {fields.length > 1 ? (
+                  {fields.length > 0 ? (
                     <Button
                       type="default"
                       className="dynamic-delete-button"

@@ -10,7 +10,6 @@ const View = ({ updateUser }) => {
         image: values.url,
       },
     });
-    console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);

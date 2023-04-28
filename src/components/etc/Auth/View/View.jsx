@@ -2,7 +2,6 @@ import { Button, Form, Input } from 'antd';
 
 const View = ({ login }) => {
   const onFinish = async (values) => {
-    console.log(values);
     await login({
       user: {
         email: values.email,

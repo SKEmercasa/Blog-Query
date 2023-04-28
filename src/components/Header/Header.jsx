@@ -4,13 +4,18 @@ import style from './header.module.scss';
 import User from './User/User';
 import Enter from './Enter/Enter';
 
-export const Header = ({ auth, off }) => {
+export const Header = ({ data, offData, offAuth, setPage }) => {
+  function main() {
+    setPage(1);
+  }
   return (
     <header className={style.header}>
       <div className={style.main}>
-        <Link to={'/'}>Realworld Blog</Link>
+        <Link to={'/'} onClick={main}>
+          Realworld Blog
+        </Link>
       </div>
-      {auth ? <User data={auth} off={off} /> : <Enter />}
+      {data ? <User data={data} offData={offData} offAuth={offAuth} /> : <Enter />}
     </header>
   );
 };
