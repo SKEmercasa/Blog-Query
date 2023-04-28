@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
 
 export const postsApi = createApi({
+  tagTypes: ['post', 'tag'],
   reducerPath: 'articles',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api/' }),
   endpoints: (build) => ({
@@ -90,7 +91,7 @@ export const postsApi = createApi({
         },
         body: body,
       }),
-      invalidatesTags: ['post'],
+      invalidatesTags: ['tag', 'post'],
     }),
     deletePost: build.mutation({
       query: (slug) => ({
