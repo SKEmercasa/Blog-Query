@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
 
+const postCount = 5;
+
 export const postsApi = createApi({
   tagTypes: ['post', 'tag'],
   reducerPath: 'articles',
@@ -8,8 +10,12 @@ export const postsApi = createApi({
   endpoints: (build) => ({
     getPosts: build.query({
       query: (page) => ({
-        url: `articles?limit=5&offset=${(page - 1) * 5}`,
+        url: 'articles',
         method: 'get',
+        params: {
+          limit: postCount,
+          offset: (page - 1) * postCount,
+        },
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${Cookies.get('Token')}`,
