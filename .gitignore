@@ -25,4 +25,4 @@ yarn-error.log*
 .vercel
 .husky
 
-eslintrc.json
+.eslintrc.json
