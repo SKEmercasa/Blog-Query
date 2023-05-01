@@ -5,7 +5,21 @@ const baseURL = 'https://blog.kata.academy/api';
 export async function getArticles(page) {
   const response = await axios.get(`${baseURL}/articles?limit=5&offset=${(page - 1) * 5}`);
   return await response.data;
+}
 
+export async function getUsers() {
+  const response = await axios.post('https://blog.kata.academy/api/users', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    user: {
+      username: 'emercasafront1',
+      email: 'emercasafront1@list.ru',
+      password: 'qwerty2906',
+    },
+  });
+  return await response.data;
 }
 
 export async function getLogin() {
