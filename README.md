@@ -1,1 +1,1 @@
-https://livepost.vercel.app
+https://livethepost.vercel.app
