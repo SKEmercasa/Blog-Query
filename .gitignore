@@ -4,8 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-eslintrc.json
-prettierrc.json
 
 # testing
 /coverage
@@ -26,3 +24,5 @@ yarn-error.log*
 
 .vercel
 .husky
+
+*.eslintrc.json
