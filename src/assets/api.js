@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const baseURL = 'https://blog.kata.academy/api';
-
 export async function getArticles(page) {
   const response = await axios.get(`${baseURL}/articles?limit=5&offset=${(page - 1) * 5}`);
   return await response.data;
